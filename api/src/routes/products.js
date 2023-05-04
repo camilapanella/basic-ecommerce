@@ -6,7 +6,7 @@ const { Product, Brand } = require("../db.js");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const data = await Product.findAll();
+  const data = await Product.findAll({ include: Brand });
   res.status(200).send(data);
 });
 
@@ -20,17 +20,10 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { name, description, price, image_url, brandId } = req.body;
+  const { name } = req.body;
   try {
     if (!name) return res.status(400).send("Mandatory data missing");
-    const newProduct = await Product.create({
-      name,
-      description,
-      price,
-      image_url,
-    });
-    let brnd = await Brand.findOne({ where: { id: brandId } });
-    newProduct.setBrand(brnd);
+    const newProduct = await Product.create(req.body);
     res.status(200).send("created successfully");
   } catch (error) {
     res.status(404).send(error.message);
