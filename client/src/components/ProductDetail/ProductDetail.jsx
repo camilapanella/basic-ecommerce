@@ -4,6 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getProductById, clearDetail } from "../../actions/actions";
 import Loading from "../Loading/Loading";
+import IconButton from "@mui/material/IconButton";
+import {
+  Button,
+  Container,
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Select,
+  MenuItem,
+  Grid,
+  CardActions,
+} from "@mui/material";
 
 export default function ProductDetail() {
   const dispatch = useDispatch();
@@ -17,21 +30,39 @@ export default function ProductDetail() {
 
   if (details.length) {
     return (
-      <div>
-        <div>
+      <Container sx={{ py: 8 }} maxWidth="md">
+        <Grid container alignItems="center" justify="center" direction="column">
           <Link to="/">
-            <button>Back</button>
+            <Button>Back</Button>
           </Link>
-          <img src={details[0].image_url} alt="" />
-          <h2>{details[0].name}</h2>
-          <h5>Description: {details[0].description}</h5>
-          <h5>Brand: 
-            <p>{details[0].brand.name}</p>
-            <img src={details[0].brand.logo_url} alt="" />
-          </h5>
-          <h6>Price: ${details[0].price}</h6>
-        </div>
-      </div>
+          <Card sx={{ maxWidth: 1000 }}>
+            <CardMedia
+              component={"img"}
+              sx={{}}
+              image={details[0].image_url}
+              title={details[0].name}
+            />
+            <CardContent>
+              <Typography variant="h2">{details[0].name}</Typography>
+              <hr />
+              <Typography variant="h5">
+                Description: {details[0].description}
+              </Typography>
+              <hr />
+              <Typography variant="h6">Price: ${details[0].price}</Typography>
+              <Typography variant="h6">
+                Brand: {details[0].brand.name}
+              </Typography>
+              <CardMedia
+                component="img"
+                sx={{ width: 160, display: { xs: "none", sm: "block" } }}
+                image={details[0].brand.logo_url}
+                alt=""
+              />
+            </CardContent>
+          </Card>
+        </Grid>
+      </Container>
     );
   } else {
     return <Loading />;

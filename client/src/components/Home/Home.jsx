@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../actions/actions";
 import Loading from "../Loading/Loading";
 import Product from "../Product/Product";
+import { Typography, Container, Grid } from "@mui/material";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -14,12 +15,12 @@ export default function Home() {
   if (products) {
     return (
       <div>
-        <div>
-          <h2>Products</h2>
-          <div>
+      <Typography variant="h2">Products</Typography>
+       <Container sx={{ py: 8 }} maxWidth="md">
+          <Grid container spacing={4} justifyContent={"center"}>
             {products?.map((el) => {
               return (
-                <div>
+                <Grid item xs={12} sm={6} md={4}>
                   <Product
                     key={el.id}
                     id={el.id}
@@ -27,11 +28,11 @@ export default function Home() {
                     image_url={el.image_url}
                     price={el.price}
                   />
-                </div>
+                </Grid>
               );
             })}
-          </div>
-        </div>
+          </Grid>
+        </Container>
       </div>
     );
   } else return <Loading />;

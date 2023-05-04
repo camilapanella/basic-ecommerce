@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postProduct, getBrands } from "../../actions/actions";
+import { Toaster, toast } from "react-hot-toast";
+import Container from "@mui/material/Container";
+import { Grid, TextField, Select, MenuItem, InputLabel } from "@mui/material";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 export function validate(input) {
   let errors = {};
@@ -33,7 +38,7 @@ export default function Form(props) {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postProduct(input));
-    alert("Product successfully created");
+    toast.success("Product successfully created");
     setInput({
       name: "",
       description: "",
@@ -46,7 +51,7 @@ export default function Form(props) {
   function handleSelect(e) {
     setInput({
       ...input,
-      brandId: e.target.value
+      brandId: e.target.value,
     });
   }
 
@@ -81,73 +86,81 @@ export default function Form(props) {
   }
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <h3>¡Create a new product!</h3>
-      <div>
-        <input
-          type="text"
-          value={input.name}
-          name="name"
-          placeholder="Add name..."
-          onChange={(e) => handleChange(e)}
-        />
-        {errors.name && <span>{errors.name}</span>}
-      </div>
-      <div>
-        <textarea
-          type="text"
-          value={input.description}
-          name="description"
-          placeholder="Description of your product..."
-          onChange={(e) => handleChange(e)}
-        />
-        {errors.description && <span>{errors.description}</span>}
-      </div>
+    <Container fixed>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <Grid container alignItems="center" justify="center" direction="column">
+          <Typography variant="h3">¡Create a new product!</Typography>
+          <hr />
+          <TextField
+            type="text"
+            value={input.name}
+            name="name"
+            placeholder="Add name..."
+            onChange={(e) => handleChange(e)}
+          />
+          <hr />
+          {errors.name && <Typography>{errors.name}</Typography>}
 
-      <div>
-        <input
-          type="number"
-          value={input.price}
-          name="price"
-          placeholder="Price..."
-          onChange={(e) => handleChange(e)}
-        />
-        {errors.price && <span>{errors.price}</span>}
-      </div>
+          <hr />
 
-      <input
-        type="text"
-        value={input.image_url}
-        name="image_url"
-        placeholder="Image url"
-        onChange={(e) => handleChange(e)}
-      />
-
-      <select defaultValue="Brands" onChange={(e) => handleSelect(e)}>
-        <option disabled>Brand</option>
-        {brands?.map((brand) => (
-          <option key={brand.name} value={brand.id}>
-            {brand.name}
-          </option>
-        ))}
-      </select>
-      <div>
-        {input.brandId ?
+          <TextField
+            type="text"
+            value={input.description}
+            name="description"
+            placeholder="Description of your product..."
+            onChange={(e) => handleChange(e)}
+          />
+          <hr />
+          {errors.description && <Typography>{errors.description}</Typography>}
+          <hr />
+          <TextField
+            type="number"
+            value={input.price}
+            name="price"
+            placeholder="Price..."
+            onChange={(e) => handleChange(e)}
+          />
+          <hr />
+          {errors.price && <Typography>{errors.price}</Typography>}
+          <hr />
+          <TextField
+            type="text"
+            value={input.image_url}
+            name="image_url"
+            placeholder="Image url"
+            onChange={(e) => handleChange(e)}
+          />
+          <hr />
+          <hr />
+          <InputLabel id="demo-simple-select-label">Select brand</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={input.brandId}
+            label="Brand"
+            onChange={(e) => handleSelect(e)}
+          >
+            {brands?.map((brand) => (
+              <MenuItem key={brand.name} value={brand.id}>
+                {brand.name}
+              </MenuItem>
+            ))}
+          </Select>
+          <hr />
           <div>
-            Reset brand
-            <input
-              type="button"
-              onClick={() => handleDelete()}
-              value="X"
-            />
+            {input.brandId ? (
+              <Button onClick={() => handleDelete()}>Reset brand</Button>
+            ) : null}
           </div>
-        : null}
-      </div>
-      {!Object.keys(errors).length ? (
-        <button disabled={!input.name || !input.description} type="submit">
-          Submit
-        </button>
-      ) : null}
-    </form>
+          <hr />
+          {!Object.keys(errors).length ? (
+            <Button disabled={!input.name || !input.description} type="submit">
+              Submit
+            </Button>
+          ) : null}
+          <Toaster position="top-center" reverseOrder={false} />
+        </Grid>
+      </form>
+    </Container>
   );
 }
