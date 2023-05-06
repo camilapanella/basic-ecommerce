@@ -9,7 +9,7 @@ export const GET_BRANDS = "GET_BRANDS";
 
 export function getProducts() {
   return async function (dispatch) {
-    var json = await axios.get(`http://localhost:3001/products`);
+    var json = await axios.get(`/products`);
     return dispatch({
       type: GET_PRODUCTS,
       payload: json.data,
@@ -19,7 +19,7 @@ export function getProducts() {
 
 export function getProductById(id) {
   return async function (dispatch) {
-    var json = await axios.get(`http://localhost:3001/products/${id}`);
+    var json = await axios.get(`/products/${id}`);
     return dispatch({
       type: GET_PRODUCT_BY_ID,
       payload: json.data,
@@ -33,19 +33,19 @@ export function clearDetail() {
 }
 export function postProduct(payload) {
   return async function (dispatch) {
-    var json = await axios.post(`http://localhost:3001/products`, payload);
+    var json = await axios.post(`/products`, payload);
     return json;
   };
 }
 export function deleteProduct(id) {
   return async function () {
-    var json = await axios.delete(`http://localhost:3001/products/${id}`);
+    var json = await axios.delete(`/products/${id}`);
   };
 }
 
 export function getBrands() {
   return async function (dispatch) {
-    var json = await axios.get(`http://localhost:3001/brands`);
+    var json = await axios.get(`/brands`);
     return dispatch({
       type: GET_BRANDS,
       payload: json.data,
