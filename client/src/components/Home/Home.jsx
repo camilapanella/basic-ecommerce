@@ -20,7 +20,7 @@ export default function Home() {
           <Grid container spacing={4} justifyContent={"center"}>
             {products?.map((el) => {
               return (
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid item xs={12} sm={6} md={4} key={el.id}>
                   <Product
                     key={el.id}
                     id={el.id}
