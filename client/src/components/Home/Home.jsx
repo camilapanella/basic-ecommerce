@@ -18,7 +18,7 @@ export default function Home() {
       <Typography variant="h2">Products</Typography>
        <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4} justifyContent={"center"}>
-            {products?.map((el) => {
+            {products ? products.map((el) => {
               return (
                 <Grid item xs={12} sm={6} md={4} key={el.id}>
                   <Product
@@ -30,7 +30,7 @@ export default function Home() {
                   />
                 </Grid>
               );
-            })}
+            }) : null}
           </Grid>
         </Container>
       </div>
