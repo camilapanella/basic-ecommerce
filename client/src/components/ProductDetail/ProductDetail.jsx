@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getProductById, clearDetail } from "../../actions/actions";
 import Loading from "../Loading/Loading";
-import IconButton from "@mui/material/IconButton";
 import {
   Button,
   Container,
@@ -12,10 +11,7 @@ import {
   CardMedia,
   CardContent,
   Typography,
-  Select,
-  MenuItem,
   Grid,
-  CardActions,
 } from "@mui/material";
 
 export default function ProductDetail() {
