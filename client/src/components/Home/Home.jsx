@@ -12,8 +12,6 @@ export default function Home() {
     dispatch(getProducts());
   }, [dispatch]);
 
-  console.log(products)
-
   if (products) {
     return (
       <div>
