@@ -137,6 +137,10 @@ export default function Form(props) {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={input.brandId}
+            sx={{
+              width: 210,
+              height: 50,
+            }}
             label="Brand"
             onChange={(e) => handleSelect(e)}
           >
