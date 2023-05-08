@@ -1,7 +1,7 @@
 # Basic Ecommerce!
 <h1>Librerias y stack utilizados</h1>
 -Stack PERN - PostgreSQL, Express, React, Node.
-<hr />
+<br />
 -Material UI para estilos.
 <br />
 -Sequelize como ORM.
